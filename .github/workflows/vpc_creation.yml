@@ -45,4 +45,4 @@ jobs:
 
     - name: VPC creation
       run: |
-        aws cloudformation deploy --stack-name nodejs-app-vpc-stack-${{ env.ENVIRONMENT }} --template-file infra_code/${{ env.ENVIRONMENT }}-aws-infra-vpc-subnet.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-2
+        aws cloudformation deploy --stack-name nodejs-app-vpc-stack-${{ env.ENVIRONMENT }} --template-file Infra_code/${{ env.ENVIRONMENT }}-aws-infra-vpc-subnet.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-2
