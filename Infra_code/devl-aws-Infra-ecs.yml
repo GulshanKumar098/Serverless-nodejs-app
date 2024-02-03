@@ -54,25 +54,26 @@ Resources:
     Properties:
       Family: !Sub "${env}-${commonName}-nodjs-app"
       ContainerDefinitions:
-      - Image: !Sub "${AWS::AccountId}.dkr.ecr.us-east-1.amazonaws.com/${env}-${ecrRegistry}:latest"
+      - Image: !Sub "${AWS::AccountId}.dkr.ecr.us-east-2.amazonaws.com/${env}-${ecrRegistry}:latest"
         Name: !Sub "${env}-${commonName}-nodejs-app"
         Environment:
         - Name: AWS_REGION
-          Value: us-east-1
+          Value: us-east-2
         LogConfiguration:
           LogDriver: awslogs
           Options:
-            awslogs-region: us-east-1
+            awslogs-region: us-east-2
             awslogs-group: !Sub "${env}-${commonName}-nodejs-app"
             awslogs-stream-prefix: !Ref env
             awslogs-create-group: true
       Cpu: "2048"
       Memory: "1024"
+      NetworkMode: awsvpc
       EphemeralStorage:
         SizeInGiB: 24
-      # ExecutionRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-ecs-task-exec-role"
+      ExecutionRoleArn: arn:aws:iam::211125627799:role/ecsTaskExecutionRole_fornodejs
       # TaskRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-container-task-role"
-      NetworkMode: awsvpc
+      NetworkMode: "awsvpc"
       RequiresCompatibilities:
       - FARGATE
       RuntimePlatform:
