@@ -45,4 +45,4 @@ jobs:
 
     - name: ECS creation
       run: |
-        aws cloudformation deploy --stack-name nodejs-app-ecs-stack-${{ env.ENVIRONMENT }} --template-file Infra_code/${{ env.ENVIRONMENT }}-aws-Infra-ecs.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-1  
+        aws cloudformation deploy --stack-name nodejs-app-ecs-stack-${{ env.ENVIRONMENT }} --template-file Infra_code/${{ env.ENVIRONMENT }}-aws-Infra-ecs.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-2  
