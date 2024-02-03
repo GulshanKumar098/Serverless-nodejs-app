@@ -46,7 +46,7 @@ jobs:
 
     - name: Docker build and push image
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125627799.dkr.ecr.us-east-1.amazonaws.com
-        docker build -t quiz-app .
-        docker tag quiz-app:latest 211125627799.dkr.ecr.us-east-1.amazonaws.com/quiz-app:latest
-        docker push 211125627799.dkr.ecr.us-east-1.amazonaws.com/quiz-app:latest
+        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 211125627799.dkr.ecr.us-east-2.amazonaws.com
+        docker build -t devl-nodejsapp .
+        docker tag devl-nodejsapp:latest 211125627799.dkr.ecr.us-east-2.amazonaws.com/devl-nodejsapp:latest
+        docker push 211125627799.dkr.ecr.us-east-2.amazonaws.com/devl-nodejsapp:latest
