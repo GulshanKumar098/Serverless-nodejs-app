@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >
+  This cloudformation template is for creating the ECS - Fargate infrastructure. #magic___^_^___line
+Parameters:
+  env:
+    Type: String
+    AllowedValues:
+    - devl
+    - prod
+    Default: devl
+
+  componentName:
+    Type: String
+    Default: nodejs-app
+
+  commonName:
+    Type: String
+    Default: nodejs-app-ecs-fargate
+
+  ecrRegistry:
+    Type: String
+    Default: quiz-app
+
+Mappings:
+  envMap:
+    devl:
+      scheduleState: DISABLED #ENABLED
+      subnets:
+      - subnet-08eecffddc464d512
+      - subnet-05e91ede5a2bdaead
+      vpcId: vpc-05b0f2f73946ca03e
+
+Resources:
+  EcsCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      CapacityProviders:
+      - FARGATE
+      ClusterName: !Sub "${env}-${commonName}"
+      ClusterSettings:
+      - Name: containerInsights
+        Value: enabled
+      Tags:
+      - Key: "Name"
+        Value: !Sub "${env}-${commonName}-cluster"
+      - Key: "component"
+        Value: !Ref componentName
+
+  TaskDefinition1:
+    Type: AWS::ECS::TaskDefinition
+    DependsOn:
+    - EcsCluster
+    Properties:
+      Family: !Sub "${env}-${commonName}-nodjs-app"
+      ContainerDefinitions:
+      - Image: !Sub "${AWS::AccountId}.dkr.ecr.us-east-1.amazonaws.com/${env}-${ecrRegistry}:latest"
+        Name: !Sub "${env}-${commonName}-nodejs-app"
+        Environment:
+        - Name: AWS_REGION
+          Value: us-east-1
+        LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            awslogs-region: us-east-1
+            awslogs-group: !Sub "${env}-${commonName}-nodejs-app"
+            awslogs-stream-prefix: !Ref env
+            awslogs-create-group: true
+      Cpu: "2"
+      Memory: "3"
+      EphemeralStorage:
+        SizeInGiB: 24
+      ExecutionRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-ecs-task-exec-role"
+      TaskRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-container-task-role"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+      - FARGATE
+      RuntimePlatform:
+        CpuArchitecture: X86_64
+        OperatingSystemFamily: LINUX
+      Tags:
+      - Key: "Name"
+        Value: !Sub "${env}-${commonName}-task-definition1"
+      - Key: "component"
+        Value: !Ref componentName
+
+
+  Ec2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub "Outbound access for nodjs ECS ${env}"
+      GroupName: !Sub "${env}-${commonName}"
+      VpcId: !FindInMap [envMap, !Ref env, vpcId]
+      Tags:
+      - Key: "Name"
+        Value: !Sub "${env}-${commonName}-security-group"
+      - Key: "component"
+        Value: !Ref componentName
+
+

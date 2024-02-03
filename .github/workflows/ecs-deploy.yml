@@ -1,5 +1,5 @@
 
-name: Docker Build and Push image
+name: ECS deploy
 on:
   workflow_dispatch:
     inputs:
@@ -9,28 +9,27 @@ on:
         required: true
         type: choice
         options:
-        - devl
-        - prod
+         - devl
+         - prod
 
 jobs:
   Deploy:
     runs-on: ubuntu-latest
-    #this is for control the deployment via approval method 1
-    # alrerady craeted env with name dev in github setings 
-    environment: Infra
+    #environment: Infra
 
-
+    
     steps:
-
+     
     - name: Checkout
       uses: actions/checkout@v2
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       aws-region: us-east-1
+
+        
 
     - name: "Set environment variables for devl environment"
       if: ${{ github.event.inputs.environment == 'devl' }}
@@ -44,9 +43,6 @@ jobs:
         echo "ENVIRONMENT=prod" >> $GITHUB_ENV
         echo "AWS_ACCT=" >> $GITHUB_ENV
 
-    - name: Docker build and push image
+    - name: ECS creation
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125627799.dkr.ecr.us-east-1.amazonaws.com
-        docker build -t quiz-app .
-        docker tag quiz-app:latest 211125627799.dkr.ecr.us-east-1.amazonaws.com/quiz-app:latest
-        docker push 211125627799.dkr.ecr.us-east-1.amazonaws.com/quiz-app:latest
+        aws cloudformation deploy --stack-name nodejs-app-ecs-stack-${{ env.ENVIRONMENT }} --template-file cf/${{ env.ENVIRONMENT }}-aws-Infra-ecs.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-1  

@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "AWS CloudFormation Devl ECR Registry"
+Parameters:
+  env:
+    Type: String
+    Description: Deployment Environment
+    Default: "devl"
+
+  awsAcct:
+    Type: String
+    Description: "AWS Account Number"
+    Default: "211125627799"
+
+  nodejsapprepo:
+    Type: String
+    Description: Name for ecr repo
+    Default: "nodejsapp"
+
+
+  componentValue:
+    Type: String
+    Default: "nodejs-app"
+
+
+Resources:
+
+  KMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: "key for dq ECR"
+      EnableKeyRotation: True
+      KeyPolicy:
+        Version: "2012-10-17"
+        Id: "default"
+        Statement:
+        - Sid: "Key Owner" # root access
+          Effect: "Allow"
+          Principal:
+            "AWS": !Join [":", ["arn:aws:iam:", !Ref awsAcct, "root"]]
+          Action: "kms:*"
+          Resource: "*"
+      Tags:
+      - Key: "Name"
+        Value: !Join ["-", [!Ref env, "node-ecr-key"]]
+      - Key: "component"
+        Value: !Ref componentValue
+
+  KeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: !Join ["", ["alias/", !Ref env, "-dq-ecr-key"]]
+      TargetKeyId: !Ref KMSKey
+
+  nodeappecrRepo:
+    Type: AWS::ECR::Repository
+    DependsOn:
+    - KMSKey
+    - KeyAlias
+
+    Properties:
+      RepositoryName: !Join ["-", [!Ref env, !Ref nodejsapprepo]]
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      ImageTagMutability: "MUTABLE"
+      EncryptionConfiguration:
+        EncryptionType: "KMS"
+        KmsKey: !Ref KeyAlias
+
+      Tags:
+      - Key: "Name"
+        Value: !Join ["-", [!Ref env, "nodejs-app"]]
+      - Key: "component"
+        Value: !Ref componentValue
+
+
