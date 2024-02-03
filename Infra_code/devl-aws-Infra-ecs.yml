@@ -20,16 +20,16 @@ Parameters:
 
   ecrRegistry:
     Type: String
-    Default: quiz-app
+    Default: nodejsapp
 
 Mappings:
   envMap:
     devl:
       scheduleState: DISABLED #ENABLED
       subnets:
-      - subnet-08eecffddc464d512
-      - subnet-05e91ede5a2bdaead
-      vpcId: vpc-05b0f2f73946ca03e
+      - subnet-0b4abf8d81adebeb3
+      - subnet-0cce64f7c20af84fe
+      vpcId: vpc-0cae2d9654d4f7b73
 
 Resources:
   EcsCluster:
@@ -70,8 +70,8 @@ Resources:
       Memory: "3"
       EphemeralStorage:
         SizeInGiB: 24
-      ExecutionRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-ecs-task-exec-role"
-      TaskRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-container-task-role"
+      # ExecutionRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-ecs-task-exec-role"
+      # TaskRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/system-roles/immuta-container-task-role"
       NetworkMode: awsvpc
       RequiresCompatibilities:
       - FARGATE
@@ -85,16 +85,16 @@ Resources:
         Value: !Ref componentName
 
 
-  Ec2SecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: !Sub "Outbound access for nodjs ECS ${env}"
-      GroupName: !Sub "${env}-${commonName}"
-      VpcId: !FindInMap [envMap, !Ref env, vpcId]
-      Tags:
-      - Key: "Name"
-        Value: !Sub "${env}-${commonName}-security-group"
-      - Key: "component"
-        Value: !Ref componentName
+# Ec2SecurityGroup:
+#   Type: AWS::EC2::SecurityGroup
+#   Properties:
+#     GroupDescription: !Sub "Outbound access for nodjs ECS ${env}"
+#     GroupName: !Sub "${env}-${commonName}"
+#     VpcId: !FindInMap [envMap, !Ref env, vpcId]
+#     Tags:
+#     - Key: "Name"
+#       Value: !Sub "${env}-${commonName}-security-group"
+#     - Key: "component"
+#       Value: !Ref componentName
 
 
