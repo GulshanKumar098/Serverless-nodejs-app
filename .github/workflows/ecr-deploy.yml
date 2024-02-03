@@ -39,5 +39,5 @@ jobs:
         echo "AWS_ACCT=" >> $GITHUB_ENV
 
     - name: Creating-ecr-repo
-      run: aws cloudformation deploy --stack-name nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} --template-file Infra_code/${{ env.ENVIRONMENT }}-aws-infra-ecr.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-1  
+      run: aws cloudformation deploy --stack-name nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} --template-file Infra_code/${{ env.ENVIRONMENT }}-aws-infra-ecr.yml  --tags Name=nodejs-app-ecr-stack-${{ env.ENVIRONMENT }} component=nodejs-app  --region us-east-2 
 
