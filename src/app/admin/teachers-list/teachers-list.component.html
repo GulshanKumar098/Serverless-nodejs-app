@@ -1,0 +1,79 @@
+<div class="row mb15">
+  <div class="col-xs-10 col-10 col-md-10 form-group">
+    <h3 class="mt5">Teachers List</h3>
+  </div>
+  <div class="col-xs-2 col-2 col-md-2 form-group">
+    <button type="button" class="btn btn-1d float-end" (click)="openFormModal()" data-bs-toggle="modal"
+      data-bs-target="#schoolsList"><i class="feather icon-plus"></i> Create</button>
+  </div>
+</div>
+<div class="row" *ngIf="data">
+  <app-material-table [inputData]="data" [columns]="columns" (actionEvent)="actionEvents($event)" [viewHidden]="true" [PDFHidden]="true"></app-material-table>
+</div>
+
+
+<!-- Delete Modal -->
+<ng-template #deleteTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Teachers List </h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <p>Are you sure you want to delete?</p>
+    <button type="button" class="btn btn-1d mr5" (click)="confirmEvent()">Delete</button>
+    <button type="button" class="btn btn-secondary" (click)="this.modalRef.hide()">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- ADD Modal -->
+
+<!-- Update Modal -->
+<ng-template #updateTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Teachers List</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form [formGroup]="teachersListForm" class="mb15"> 
+      <div class="row">
+        <div class="col-md-6">
+          <label for="inputField" class="d-flex">Select School</label>
+          <select class="form-select" (change)="selectSchool($event)" formControlName="school_name">
+            <option class="form-control" id="inputField" matInput  placeholder="Select School" [value]="schools.name"
+             *ngFor="let schools of schoolsList">{{schools.name}}</option>
+          </select>           
+        </div>
+        <div class="col-md-6">
+          <label for="inputField" class="d-flex">User Name</label>
+          <input class="form-control" id="inputField" [placeholder]="isAddModel?'Enter User name':''" matInput
+            formControlName="username">
+        </div>
+        <div class="col-md-6">
+          <label for="inputField" class="d-flex">Email Address</label>
+          <input type="email" class="form-control" id="inputField" [placeholder]="isAddModel?'Enter Email Address':''" matInput
+            formControlName="email">
+        </div>
+        <div class="col-md-6">
+          <label for="inputField" class="d-flex">Password</label>
+          <input type="password" class="form-control" id="inputField" [placeholder]="isAddModel?'Enter Password':''" minlength="8" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" 
+            matInput formControlName="password">
+        </div>
+        <div class="col-md-6">
+          <label for="inputField" class="d-flex">Confirm Password</label>
+          <input type="password" class="form-control" id="inputField" [placeholder]="isAddModel?'Retype Password':''"
+            matInput formControlName="confirm_password" required>
+        </div>
+      </div>
+    </form>
+    <div class="mt-10">
+      <div class="float-end">
+        <button type="button" class="btn btn-1d mr5" (click)="confirmEvent()">{{isAddModel?'Create':'Update'}}</button>
+        <button type="button" class="btn btn-secondary" (click)="this.modalRef.hide()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

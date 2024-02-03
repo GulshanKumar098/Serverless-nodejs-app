@@ -1,0 +1,53 @@
+<ngx-loading [show]="showLoader" [config]="{ backdropBackgroundColour: 'rgba(0,0,0,0.3)', backdropBorderRadius: '4px', primaryColour: '#ffffff', secondaryColour: '#ccc', tertiaryColour: '#333' }"></ngx-loading>
+<div class="alert alert-danger" *ngIf="showResult">
+
+</div>
+<div class="login-bg auth-full-height d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="m-2">
+                            <div class="d-flex justify-content-center mt-3">
+                                <div class="text-center logo">
+                                    <img alt="logo" class="img-fluid" src="assets/images/1decision-logo.jpg"
+                                        style="height: 70px;">
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <h3 class="fw-bolder">Sign In</h3>
+                                <p class="text-muted">Sign in your account to continue</p>
+                            </div>
+                            <form [formGroup]="formGroup" (submit)="login()">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" 
+                                    class="form-control no-validation-icon no-success-validation" formControlName="username">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>Password</span>
+                                        <a class="text-primary font" [routerLink]="['forgotPassword']">Forgot Password?</a>
+                                    </label>
+                                    <div class="form-group input-affix flex-column">
+                                        <label class="d-none">Password</label>
+                                        <input [type]="showPassword ? 'text' : 'password'" 
+                                            class="form-control no-validation-icon no-success-validation" minlength="8" formControlName="password">
+                                        <i class="suffix-icon feather cursor-pointer text-dark" 
+                                            [ngClass]="showPassword ? 'icon-eye-off' : 'icon-eye'"  (click)="onShowPasswordClick()">
+                                        </i>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-1d w-100" >Log In</button>
+                            </form>
+                            <!-- <div class="text-center mt-4">
+                                <p class="text-muted">Don't have an account yet? <a [routerLink]="['register']">Sign Up</a></p>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

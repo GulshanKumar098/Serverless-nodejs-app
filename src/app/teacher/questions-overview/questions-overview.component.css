@@ -1,0 +1,9 @@
+.btn-pdfdownload{
+    background: #336699 !important;
+    color: #fff !important;
+    padding: 0.4rem 1.3rem;
+    position: absolute;
+    right: 6px;
+    z-index: 99999;
+    margin-top: -10px;
+}

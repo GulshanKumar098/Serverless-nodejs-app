@@ -1,0 +1,123 @@
+<div *ngIf="isTable">
+    <div class="row mb15">
+        <div class="col-xs-10 col-10 col-md-10 form-group">
+            <h3>Quiz List</h3>
+        </div>
+        <div class="col-xs-2 col-2 col-md-2 form-group">
+            <button type="button" class="btn btn-1d float-end" (click)="openFormModal()" data-bs-toggle="modal"
+                data-bs-target="#quizList"><i class="feather icon-plus"></i> Create</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="allQuiz">
+        <app-material-table [inputData]="allQuiz" [columns]="columns" (actionEvent)="actionEvents($event)"
+            [viewHidden]="true" [PDFHidden]="true"></app-material-table>
+    </div>
+</div>
+
+<ng-template #deleteTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Test List </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <p>Are you sure you want to delete?</p>
+        <button type="button" class="btn btn-1d" (click)="confirmEvent()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="this.modalRef.hide()">Cancel</button>
+    </div>
+</ng-template>
+
+<!-- <ng-template #createQuiz>
+</ng-template> -->
+<div *ngIf="!isTable" class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <br>
+            <div class="row mt5">
+                <div class="col-md-7">
+                    <input type="text" class="form-control" [(ngModel)]="quizName" placeholder="Quiz Name" required />
+                </div>
+                <!-- <div class="col-md-4">
+                    <mat-select multiple #select [(ngModel)]="schoolName" placeholder="Select Schools">
+                        <mat-option *ngFor=" let schools of allSchools"
+                            [value]="schools.id">{{schools.name}}</mat-option>
+                    </mat-select>
+                </div> -->
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-1d" (click)="createQuestion()" data-bs-toggle="modal"><i
+                            class="feather icon-plus"></i>
+                        Create Question</button>
+                </div>
+            </div>
+            <br>
+
+            <div *ngFor="let loop of quizQuestionArr; let indexOfelement=index;">
+                <mat-accordion style="margin-top:50px" class="example-headers-align" multi>
+                    <mat-expansion-panel expanded="false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <button type="button" class="btn float-end btn-danger"
+                                    (click)="deleteQuestion(indexOfelement)" data-bs-toggle="modal"><i
+                                        class="feather icon-trash"></i>
+                                </button>&nbsp;&nbsp;&nbsp; Question No : {{indexOfelement+1}} :
+                                <b>{{loop?.question_text}}</b>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <br>
+                        <div class="row mt5">
+                            <div class="col-md-5">
+                                <input type="text" [(ngModel)]="loop.question_text" class="form-control"
+                                    placeholder="Enter Question Name" required />
+                            </div>
+                            <div class="col-md-5">
+                                <select class="form-select" (change)="selectPDA($event,loop)" [(ngModel)]="loop.pda_id">
+                                    <option class="form-control" id="inputField" matInput *ngFor="let pdas of allPDA"
+                                        [value]="pdas.id">{{pdas.content}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-1d float-end"
+                                    (click)="createOption(indexOfelement)" data-bs-toggle="modal"><i
+                                        class="feather icon-plus"></i>
+                                    Create Option</button>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngFor="let optionLoop of loop.choices; let indexOfOption=index;">
+                            <div class="row mt5">
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-danger float-end"
+                                        (click)="deleteOption(indexOfelement , indexOfOption)" data-bs-toggle="modal"><i
+                                            class="feather icon-trash"></i></button>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" [(ngModel)]="loop.choices[indexOfOption].choice_text"
+                                        class="form-control" placeholder="Option No : {{indexOfOption+1}}" required />
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="checkbox" name="myData"
+                                        [(ngModel)]="loop.choices[indexOfOption].is_correct"
+                                        (change)="checkCheckBoxvalue($event , indexOfelement , indexOfOption)">
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <br>
+            </div>
+            <div class="row mt5">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-danger" (click)="closeQiuz()" data-bs-toggle="modal">
+                        <i class="feather icon-close"></i>Close</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-1d" (click)="confirmEvent()" data-bs-toggle="modal"><i
+                            class="feather icon-plus"></i>
+                        {{isAddModel?'Save Quiz':'Update Quiz'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

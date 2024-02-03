@@ -1,0 +1,68 @@
+<!-- Header START -->
+<div class="header-text-dark header-nav layout-vertical" [style.width]="isHeaderExpand?'calc(100% - 17.5rem)':'calc(100% - 4.5rem)'">
+    <div class="header-nav-wrap">
+        <div class="header-nav-left">
+            <div class="header-nav-item desktop-toggle" (click)="headerExpand()">
+                <div class="header-nav-item-select cursor-pointer">
+                    <i class="nav-icon feather icon-menu icon-arrow-right"></i>
+                </div>
+            </div>
+            <div class="header-nav-item mobile-toggle">
+                <div class="header-nav-item-select cursor-pointer">
+                    <i class="nav-icon feather icon-menu icon-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+        <div class="header-nav-right">
+            <div class="header-nav-item">
+                <div class="dropdown header-nav-item-select nav-profile">
+
+                    <div class="btn-group" dropdown>
+                        <div class="toggle-wrapper " id="button-basic" dropdownToggle aria-controls="dropdown-basic">
+                            <div class="avatar avatar-circle avatar-image">
+                                    <img src="assets/teacher-icon.jpg" alt="" *ngIf="userRole == 'teacher'">
+                                    <img src="assets/administrator-icon.jpg" alt="" *ngIf="userRole == 'admin'">
+                                <i class="feather icon-user"></i>
+                            </div> 
+                            <span class="fw-bold mx-1">{{headerUserName | titlecase}}</span>
+                            <i class="feather icon-chevron-down"></i>
+                        </div>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                            aria-labelledby="button-basic" style="margin-left: -113px;">
+                            <li mat-menu-item class="nav-profile-header">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-circle avatar-image">
+                                        <img src="assets/teacher-icon.jpg" alt="" *ngIf="userRole == 'teacher'">
+                                        <img src="assets/administrator-icon.jpg" alt="" *ngIf="userRole == 'admin'">
+                                    </div>
+                                    <div class="d-flex flex-column ms-1">
+                                        <span class="fw-bold text-dark">{{headerUserName | titlecase}}</span>
+                                        <span class="font-size-sm">{{data?.email}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a [routerLink]="['./changePassword']" class="dropdown-item">
+                                    <div class="d-flex align-items-center">
+                                        <i class="font-size-lg me-2 feather icon-lock"></i>
+                                        <span>Change Password</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a mat-menu-item class="dropdown-item" (click)="logout()">
+                                    <div class="d-flex align-items-center"><i
+                                            class="font-size-lg me-2 feather icon-power"></i>
+                                        <span>Sign Out</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

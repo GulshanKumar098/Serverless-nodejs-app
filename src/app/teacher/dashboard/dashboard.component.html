@@ -1,0 +1,72 @@
+<div class="row mt-2 mb5">
+    <div class="col-xs-10 col-10 col-md-10 form-group">
+        <h3 class="mt-2">Teacher Dashboard</h3>
+    </div>
+    <div class="col-xs-2 col-2 col-md-2 form-group">
+        <mat-select multiple #studentSelect [(ngModel)]="selectedStudentsList" placeholder="Select Students" class="mb5 pupilList"
+        (selectionChange)="filterChange()">
+          <input autocomplete="off" class="form-control" placeholder="Search" aria-label="Search" matInput
+          (input)="_filter($event.target)"
+          >
+            <mat-option *ngFor="let students of filterData" [value]="students.id">{{students.name}}</mat-option>
+        </mat-select>
+    </div>
+    <div class="col-md-12" *ngIf="this.tableData !=0">
+        <app-material-table [inputData]="tableData" [columns]="columns" (actionEvent)="actionEvents($event)"
+            [actionHidden]="true" [viewHidden]="true"></app-material-table>
+    </div>
+    <div class="col-md-12" *ngIf="this.tableData ==0">
+        <p>No Data Available.</p>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-12 mb5" *ngIf="tableData == filterData">
+        Showing Results of All Students
+    </div>
+    <div class="col-xs-4 col-4 col-md-4" *ngFor="let itemchart of newChartDataSet">
+        <h5 class="card-header">{{itemchart.name}}</h5>
+        <div class="card">
+            <div class="card-body">
+                <div id="studentsTests">
+                    <apx-chart [series]="$any(itemchart.series)" [stroke]="$any(itemchart.stroke)" [chart]="$any(itemchart.chart)"
+                        [plotOptions]="$any(itemchart.plotOptions)" [tooltip]="$any(itemchart.tooltip)"
+                        [labels]="$any(itemchart.labels)" [dataLabels]="$any(itemchart.dataLabels)" [colors]="$any(itemchart.colors)"
+                        [responsive]="$any(itemchart.responsive)" [legend]="$any(itemchart.legend)" ></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Modal -->
+<!-- <ng-template #viewTemplate class="modal-lg">
+  <div class="" >
+    <div class="modal-header" *ngIf="chartDisplaydata">
+      <h4 class="modal-title pull-left">{{chartDisplaydata?.name}} Test Scores</h4>
+      <button type="button" class="btn-close close pull-right mr5" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center" *ngIf="BarChartOptions">
+      <div class="row">
+        <div id="studentsTests">
+          <apx-chart [series]="$any(BarChartOptions.series)" [stroke]="$any(BarChartOptions.stroke)" [chart]="$any(BarChartOptions.chart)"
+              [plotOptions]="$any(BarChartOptions.plotOptions)" [tooltip]="$any(BarChartOptions.tooltip)" [colors]="$any(BarChartOptions.colors)"
+              [labels]="$any(BarChartOptions.labels)" [responsive]="$any(BarChartOptions.responsive)" [xaxis]="BarChartOptions.xaxis" [yaxis]="BarChartOptions.yaxis"></apx-chart> -->
+         <!-- <apx-chart
+            [series]="$any(BarChartOptions.series)"
+            [chart]="$any(BarChartOptions.chart)"
+            [dataLabels]="$any(BarChartOptions.dataLabels)"
+            [plotOptions]="$any(BarChartOptions.plotOptions)"
+            [legend]="$any(BarChartOptions.legend)" [colors]="$any(BarChartOptions.colors)"
+            [fill]="$any(BarChartOptions.fill)"
+            [stroke]="$any(BarChartOptions.stroke)"
+            [tooltip]="$any(BarChartOptions.tooltip)"
+            [xaxis]="$any(BarChartOptions.xaxis)" [yaxis]="$any(BarChartOptions.yaxis)"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template> -->

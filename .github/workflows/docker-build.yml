@@ -1,0 +1,60 @@
+
+name: Docker Build and Push image
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'The application deployment environment'
+        default: 'devl'
+        required: true
+        type: choice
+        options:
+        - devl
+        - prod
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    #this is for control the deployment via approval method 1
+    # alrerady craeted env with name dev in github setings 
+    environment: Infra
+
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      #      # For mannual approval method 2 
+      #     - uses: trstringer/manual-approval@v1
+      #       with:
+      #         approvers: GulshanKumar098
+
+
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: "Set environment variables for devl environment"
+
+
+      if: ${{ github.event.inputs.environment == 'devl' }}
+      run: |
+        echo "ENVIRONMENT=devl" >> $GITHUB_ENV
+        echo "AWS_ACCT=211125627799" >> $GITHUB_ENV
+
+    - name: "Set environment variables for prod environment"
+      if: ${{ github.event.inputs.environment == 'prod' }}
+      run: |
+        echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+        echo "AWS_ACCT=188549407646" >> $GITHUB_ENV
+
+    - name: Docker build and push image
+      run: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125627799.dkr.ecr.us-east-1.amazonaws.com
+        docker build -t quiz-app .
+        docker tag quiz-app:latest 211125627799.dkr.ecr.us-east-1.amazonaws.com/quiz-app:latest
+        docker push 211125627799.dkr.ecr.us-east-1.amazonaws.com/quiz-app:latest

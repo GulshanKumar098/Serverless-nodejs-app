@@ -1,0 +1,15 @@
+#TeachersData {
+  max-width: 650px;
+  margin: 35px auto;
+}
+
+#chart {
+  max-width: 650px;
+  margin: 35px auto;
+}
+#studentsTests {
+  max-width: 430px;
+  margin: 20px auto;
+  padding: 0;
+  height: 325px;
+}

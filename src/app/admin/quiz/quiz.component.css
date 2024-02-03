@@ -1,0 +1,33 @@
+.mat-accordion>.mat-expansion-panel-spacing:last-child, .mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {
+    margin-bottom: 0;
+    border: 1px solid #ccc !important;
+}
+.mat-expansion-panel-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 24px;
+    border-radius: inherit;
+    transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+.mat-expansion-panel-content {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    padding: 15px;
+}
+.mat-pseudo-checkbox-checked {
+    border-color: #486f88 !important;
+}
+mat-select#mat-select-2 {
+    border: 2px solid #ccdfea;
+    padding: 7px;
+    border-radius: 0.375rem;
+}
+mat-select#mat-select-6{
+    border: 2px solid #ccdfea;
+    padding: 7px;
+    border-radius: 0.375rem; 
+}

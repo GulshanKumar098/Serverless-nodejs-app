@@ -1,0 +1,103 @@
+<div class="row mb15">
+    <div class="col-xs-8 col-8 col-md-8 form-group">
+        <h3 class="mt5">Dashboard</h3>
+    </div>
+    <div class="col-xs-4 col-4 col-md-4">
+        <input class="form-control" type="text" matInput ngxDaterangepickerMd [autoApply]="true"
+        [showCustomRangeLabel]="true" [(ngModel)]="selectedDates" [alwaysShowCalendars]="true" [ranges]="ranges" (ngModelChange)="choosedDate($event)"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h1><i class="la la-user-edit"></i></h1>
+                        <h3>Total Tests</h3>
+                    </div>
+                    <div class="text-primary fw-bold card-numbers">{{testsData ? testsData.length : '0'}}</div>
+                </div>
+                <div class="mt-4" id="monthly-revenue" style="max-width: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h1><i class="feather icon-users"></i></h1>
+                        <h3>Total Teachers</h3>
+                    </div>
+                    <div class="text-warning fw-bold card-numbers">{{teacherData ? teacherData.length : '0' }}</div>
+                </div>
+                <div class="mt-4" id="monthly-revenue" style="max-width: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h1><i class="la la-school"></i></h1>
+                        <h3>Total Schools</h3>
+                    </div>
+                    <div class="text-success fw-bold card-numbers">{{schoolsList ? schoolsList.length:'0'}}</div>
+                </div>
+                <div class="mt-4" id="monthly-revenue" style="max-width: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h1><i class="la la-user-graduate"></i></h1>
+                        <h3>Total Pupil</h3>
+                    </div>
+                    <div class="text-danger fw-bold card-numbers">{{totalStudents ? totalStudents.length:'0'}}</div>
+                </div>
+                <div class="mt-4" id="monthly-revenue" style="max-width: 250px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb30">
+    <div class="col-xs-6 col-6 col-md-6">
+        <h5 class="card-header">Number of Pupil Taken Test From {{selectedDates.startDate.format('DD-MM-YYYY')}} to {{selectedDates.endDate.format('DD-MM-YYYY')}}</h5>
+        <div class="card">
+            <div class="card-body">
+                <div id="teacherData" *ngIf="this.testsTakenData !=0">
+                    <apx-chart [series]="$any(testsTaken.series)" [chart]="$any(testsTaken.chart)"
+                        [xaxis]="$any(testsTaken.xaxis)" [dataLabels]="$any(testsTaken.dataLabels)"
+                        [grid]="$any(testsTaken.grid)" [stroke]="$any(testsTaken.stroke)" [colors]="$any(testsTaken.colors)"
+                        [legend]="$any(testsTaken.legend)" [plotOptions]="$any(testsTaken.plotOptions)"
+                        [fill]="$any(testsTaken.fill)" [tooltip]="$any(testsTaken.tooltip)"
+                        [yaxis]="$any(testsTaken.yaxis)"></apx-chart>
+                </div>
+                <div id="studentsTests" *ngIf="this.testsTakenData ==0">
+                    <p>No Data Available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-6 col-md-6">
+        <h5 class="card-header">Pupil Year Groups From {{selectedDates.startDate.format('DD-MM-YYYY')}} to {{selectedDates.endDate.format('DD-MM-YYYY')}}</h5>
+        <div class="card">
+            <div class="card-body">
+                <div id="studentsTests" *ngIf="this.yearGroups !=0">
+                    <apx-chart [series]="$any(PieChartOptions.series)" [stroke]="$any(PieChartOptions.stroke)" [dataLabels]="$any(PieChartOptions.dataLabels)"
+                        [chart]="$any(PieChartOptions.chart)" [plotOptions]="$any(PieChartOptions.plotOptions)"
+                        [tooltip]="$any(PieChartOptions.tooltip)" [labels]="$any(PieChartOptions.labels)" [colors]="$any(PieChartOptions.colors)"
+                        [responsive]="$any(PieChartOptions.responsive)"></apx-chart>
+                </div>
+                <div id="studentsTests" *ngIf="this.yearGroups ==0">
+                    <p>No Data Available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

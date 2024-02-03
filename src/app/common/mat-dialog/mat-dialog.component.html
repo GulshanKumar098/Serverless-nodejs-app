@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{title}}</h1>
+
+<mat-dialog-content>
+  <form *ngIf="canBindInput;else msg">
+    <mat-form-field class="full-width">
+      <mat-label style="margin-top: '8px';">{{label}}</mat-label>
+      <input style="margin-top: 30px;" matInput [placeholder]="placeholderText" [(ngModel)]="modalData.inputField" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </form>
+  <ng-template #msg>
+    <p class="msg-text">{{message}}</p>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button color="primary" (click)="onConfirmClick()">{{confirmButtonText}}</button>
+  <button mat-button  mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
+</mat-dialog-actions>

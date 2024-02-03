@@ -1,0 +1,64 @@
+<!-- Side Nav START -->
+<div class="nav-logo" *ngIf="isExpanded">
+    <div class="w-100 logo">
+        <img class="img-fluid" src="assets/images/1decision-logo.jpg" alt="logo">
+    </div>
+</div>
+<ul class="nav-menu" *ngIf="currentRole == 'admin'">
+    <li class="nav-menu-item">
+        <a [routerLink]="['/admin']">
+            <i class="feather icon-home"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['personaldevelopment']">
+            <i class="feather icon-book-open"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Personal Development Areas</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['schoolsList']">
+            <i class="la la-school"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Schools</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['teachersList']">
+            <i class="feather icon-users"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Teachers</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['quiz']">
+            <i class="feather icon-info"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Knowledge Quiz</span>
+        </a>
+    </li>
+</ul>
+<ul class="nav-menu" *ngIf="currentRole == 'teacher'">
+    <li class="nav-menu-item">
+        <a [routerLink]="['/teacher']">
+            <i class="feather icon-home"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['questionsOverview']">
+            <i class="feather icon-download"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Questions Overview</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['availableTests']">
+            <i class="icon-file-text feather"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Available Tests</span>
+        </a>
+    </li>
+    <li class="nav-menu-item">
+        <a [routerLink]="['retakeTests']">
+            <i class="icon-book-open feather"></i>
+            <span class="nav-menu-item-title" *ngIf="isExpanded">Retake Tests</span>
+        </a>
+    </li>
+</ul>

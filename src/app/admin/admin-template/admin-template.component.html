@@ -1,0 +1,17 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened="isExpanded">
+    <mat-nav-list>
+      <app-header (isExpend)="headerEvent($event)"></app-header>
+      <app-side-menu [isExpanded]="isExpanded"></app-side-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="container-fluid">
+      <div class="main">
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

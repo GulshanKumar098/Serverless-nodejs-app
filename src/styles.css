@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+@import 'ngx-toastr/toastr';
+.register-bg{
+    background: url("assets/images/quiz-login.jpg") !important;
+    background-size: cover !important;
+}
+.login-bg{
+    background: url("assets/images/quiz-login.jpg") !important;
+    background-size: cover !important;
+}
+.card-numbers{
+    font-size: 3.2rem;
+}
+.btn-1d {
+    background: #336699 !important;
+    color: #fff !important;
+    border: none;
+}
+
+.mb15{
+    margin-bottom: 1.5rem;
+}
+.mb30 {
+    margin-bottom: 3rem;
+}
+.mr5{
+    margin-right: 0.5rem;
+}
+.mt-10{
+    margin-top: 1rem;
+}
+.mt5{
+    margin-top: 0.5rem;
+}
+.mb5{
+    margin-bottom: 0.5rem;
+}
+
+.modal-position {
+  top: 30%;
+  width: 500px;
+  height: 501px;
+
+}
+
+.md-drppicker .btn.btn-default {
+    color: #000 !important;
+    background-color: #dcdcdc;
+    margin-right: 10px;
+  }
+  .md-drppicker .calendar th, .md-drppicker .calendar td {
+    padding: 0;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 25px !important;
+} 
+.md-drppicker .ranges ul li button {
+    padding: 8px 5px !important; 
+}
+.md-drppicker{
+    margin-top:0 !important;
+}
+.mdc-line-ripple::before { 
+    color: #ccdfea !important;
+}
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled{
+    border: 1px solid #ccdfea !important;
+    border-bottom: none !important;
+    margin-top: 15px !important;
+    margin-left: -5px;
+    padding: 10px !important;
+    border-radius: 5px !important;
+  }
+  .mat-mdc-form-field-subscript-wrapper {
+    height: 15px !important;
+}
+
+pdf-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+  }

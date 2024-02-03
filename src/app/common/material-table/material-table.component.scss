@@ -1,0 +1,57 @@
+Structure
+table {
+    width: 100%;
+  }
+
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  .mdc-data-table__row {
+    height: 35px;
+    font-size: 13px;
+}
+.mdc-data-table__header-row {
+  height: 40px;
+  background: #336699 !important;
+  color:#fff !important;
+  margin: 0;
+  border-radius: 2px;
+}
+
+.mat-column-content {
+  flex: 0 0 80%;
+}
+.mat-column-action {
+  flex: 0 0 20%;
+}
+
+::ng-deep {
+  .cdk-overlay-container,
+  .cdk-global-overlay-wrapper {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .cdk-overlay-container {
+    position: fixed;
+    z-index: 1000;
+  }
+  .mat-mdc-paginator {
+    display: block;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+  .cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    box-sizing: border-box;
+    z-index: 1000;
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+    background: #fff;
+  }
+}

@@ -1,0 +1,14 @@
+<div class="row ">
+    <div class="col-12 mb5">
+        <h5 class="card-header">{{pdfName}} <span style="float: right;"><button type="button"
+                    class="btn btn-pdfdownload" (click)="downloadPdf()">Download PDF</button> </span> </h5>
+        <div class="card">
+            <!-- <div class="card-body"> -->
+            <div class="scrollbar" id="scrollbar2"> 
+                <pdf-viewer class="scrollbar" id="scrollbar2" src="../../../adminPanel/assets/pdf/questions-pd-transitional-quiz.pdf" [stick-to-page]="true"
+                [external-link-target]="'blank'" [zoom]="1" [zoom-scale]="'page-width'" style="min-height: 82vh; width: 100%;" [original-size]="true">
+                </pdf-viewer>
+            </div>
+        </div>
+    </div>
+</div>
